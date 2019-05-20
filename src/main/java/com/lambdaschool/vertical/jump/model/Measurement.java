@@ -1,5 +1,7 @@
 package com.lambdaschool.vertical.jump.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 
@@ -16,6 +18,7 @@ public class Measurement
     private String measurementdate;
     
     @ManyToOne(fetch = FetchType.LAZY)
+    @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JoinColumn(name = "userid",
                 nullable = false)
     private User user;

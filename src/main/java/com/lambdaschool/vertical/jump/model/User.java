@@ -2,6 +2,7 @@ package com.lambdaschool.vertical.jump.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -22,19 +23,24 @@ public class User extends Auditable
     @Column(nullable = false,
             unique = true)
     private String username;
+    
+    private String height;
+    private double vertical;
+    private long exercisescompleted = 0;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @OneToMany(mappedBy = "user",
-               cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
+    @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JsonIgnoreProperties("user")
     private List<UserRoles> userRoles = new ArrayList<>();
     
     @OneToMany(mappedBy = "user",
-                cascade = CascadeType.ALL,
                 orphanRemoval = true)
-    private List<Measurement> measurements;
+    @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+    @JsonIgnoreProperties("user")
+    private List<Measurement> measurements = new ArrayList<>();
 
     public User()
     {
@@ -50,7 +56,62 @@ public class User extends Auditable
         }
         this.userRoles = userRoles;
     }
-
+    
+    public User(String username, String height, double vertical, long exercisescompleted, String password, List<UserRoles> userRoles, List<Measurement> measurements)
+    {
+        setUsername(username);
+        setPassword(password);
+        for (UserRoles ur : userRoles)
+        {
+            ur.setUser(this);
+        }
+        this.userRoles = userRoles;
+        this.height = height;
+        this.vertical = vertical;
+        this.exercisescompleted = exercisescompleted;
+        this.measurements = measurements;
+    }
+    
+    public String getHeight()
+    {
+        return height;
+    }
+    
+    public void setHeight(String height)
+    {
+        this.height = height;
+    }
+    
+    public double getVertical()
+    {
+        return vertical;
+    }
+    
+    public void setVertical(double vertical)
+    {
+        this.vertical = vertical;
+    }
+    
+    public long getExercisescompleted()
+    {
+        return exercisescompleted;
+    }
+    
+    public void setExercisescompleted(long exercisescompleted)
+    {
+        this.exercisescompleted = exercisescompleted;
+    }
+    
+    public List<Measurement> getMeasurements()
+    {
+        return measurements;
+    }
+    
+    public void setMeasurements(List<Measurement> measurements)
+    {
+        this.measurements = measurements;
+    }
+    
     public long getUserid()
     {
         return userid;

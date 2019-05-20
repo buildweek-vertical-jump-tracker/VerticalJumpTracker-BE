@@ -1,9 +1,13 @@
 package com.lambdaschool.vertical.jump.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "workouts")
@@ -16,11 +20,16 @@ public class Workout
     private int day;
     
     @ManyToMany
+    @Cascade({CascadeType.MERGE, CascadeType.SAVE_UPDATE})
     @JoinTable(name = "workoutexercises",
                 joinColumns = {@JoinColumn(name = "workoutid")},
                 inverseJoinColumns = {@JoinColumn(name = "exerciseid")})
     @JsonIgnoreProperties("workouts")
-    private ArrayList<Exercise> exercises;
+    private List<Exercise> exercises = new ArrayList<>();
+    
+    public Workout()
+    {
+    }
     
     public Workout(int day, ArrayList<Exercise> exercises)
     {
@@ -48,7 +57,7 @@ public class Workout
         this.workoutid = workoutid;
     }
     
-    public ArrayList<Exercise> getExercises()
+    public List<Exercise> getExercises()
     {
         return exercises;
     }
