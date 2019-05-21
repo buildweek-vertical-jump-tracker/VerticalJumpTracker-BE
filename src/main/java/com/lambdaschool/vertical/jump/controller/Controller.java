@@ -67,4 +67,11 @@ public class Controller
         
         return new ResponseEntity<>(workoutService.getToday(userService.findUserByUsername(username)), HttpStatus.OK);
     }
+    
+    @GetMapping(value = "/workouts/{id}", produces = {"application/json"})
+    public ResponseEntity<?> incrementWorkout(@PathVariable long id)
+    {
+        userService.incrementWorkout(id);
+        return new ResponseEntity<>(userService.findUserById(id), HttpStatus.OK);
+    }
 }

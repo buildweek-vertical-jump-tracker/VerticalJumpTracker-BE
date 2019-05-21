@@ -140,4 +140,11 @@ public class UserServiceImpl implements UserDetailsService, UserService
         }
         
     }
+    
+    @Override
+    @Transactional
+    public void incrementWorkout(long id)
+    {
+        userrepos.incrementWorkout(id, userrepos.findByUserid(id).getExercisescompleted() + 1);
+    }
 }
