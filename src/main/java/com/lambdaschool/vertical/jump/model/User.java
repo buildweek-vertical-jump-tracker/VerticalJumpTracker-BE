@@ -41,6 +41,12 @@ public class User extends Auditable
     @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JsonIgnoreProperties("user")
     private List<Measurement> measurements = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "user",
+                orphanRemoval = true)
+    @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+    @JsonIgnoreProperties("user")
+    private List<Goal> goals = new ArrayList<>();
 
     public User()
     {
@@ -168,5 +174,15 @@ public class User extends Auditable
             rtnList.add(new SimpleGrantedAuthority(myRole));
         }
         return rtnList;
+    }
+    
+    public List<Goal> getGoals()
+    {
+        return goals;
+    }
+    
+    public void setGoals(List<Goal> goals)
+    {
+        this.goals = goals;
     }
 }

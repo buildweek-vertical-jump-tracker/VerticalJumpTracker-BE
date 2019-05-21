@@ -17,14 +17,16 @@ public class SeedData implements CommandLineRunner
     MeasurementRepository measurementRepository;
     UserRepository userRepository;
     RoleRepository roleRepository;
+    GoalRepository goalRepository;
     
-    public SeedData(WorkoutRepository workoutRepository, ExerciseRepository exerciseRepository, MeasurementRepository measurementRepository, UserRepository userRepository, RoleRepository roleRepository)
+    public SeedData(WorkoutRepository workoutRepository, ExerciseRepository exerciseRepository, MeasurementRepository measurementRepository, UserRepository userRepository, RoleRepository roleRepository, GoalRepository goalRepository)
     {
         this.workoutRepository = workoutRepository;
         this.exerciseRepository = exerciseRepository;
         this.measurementRepository = measurementRepository;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.goalRepository = goalRepository;
     }
     
     @Override
@@ -92,6 +94,26 @@ public class SeedData implements CommandLineRunner
             exerciseRepository.save(e);
         }
         workoutRepository.save(w1);
+        
+        Goal g1 = new Goal(24, u1);
+        ArrayList<Goal> u1goals = new ArrayList<>();
+        u1goals.add(g1);
+        
+        u1.setGoals(u1goals);
+        
+        goalRepository.save(g1);
+        
+        Goal g2 = new Goal(24, u2);
+        Goal g3 = new Goal(26, u2);
+        
+        ArrayList<Goal> u2goals = new ArrayList<>();
+        u2goals.add(g2);
+        u2goals.add(g3);
+        
+        u2.setGoals(u2goals);
+        
+        goalRepository.save(g2);
+        goalRepository.save(g3);
         
         
         

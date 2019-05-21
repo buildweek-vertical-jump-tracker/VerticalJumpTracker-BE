@@ -1,5 +1,6 @@
 package com.lambdaschool.vertical.jump.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class Measurement
     @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JoinColumn(name = "userid",
                 nullable = false)
+    @JsonIgnoreProperties("measurements")
     private User user;
     
     public Measurement()
