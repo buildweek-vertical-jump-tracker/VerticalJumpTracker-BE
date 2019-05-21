@@ -122,22 +122,22 @@ public class User extends Auditable
     {
         return userid;
     }
-
+    
     public void setUserid(long userid)
     {
         this.userid = userid;
     }
-
+    
     public String getUsername()
     {
         return username;
     }
-
+    
     public void setUsername(String username)
     {
         this.username = username;
     }
-
+    
     public String getPassword()
     {
         return password;

@@ -37,7 +37,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter
                         "/swagger-ui.html",        // swagger
                         "/webjars/**",              // swagger
                         "/workouts/**",
-                        "/users/me"
+                        "/users/me",
+                        "/goals/**"
                 
                 ).permitAll()
                 // hasAnyRole can be a list of roles as in "ADMIN", "DATA"

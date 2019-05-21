@@ -72,4 +72,10 @@ public class Goal
     {
         this.user = user;
     }
+    
+    @Override
+    public String toString()
+    {
+        return ("Goal: " + goalvertical + " completed: " + completed);
+    }
 }
