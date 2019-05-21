@@ -57,7 +57,7 @@ public class User extends Auditable
         this.userRoles = userRoles;
     }
     
-    public User(String username, String height, double vertical, long exercisescompleted, String password, List<UserRoles> userRoles, List<Measurement> measurements)
+    public User(String username, String height, double vertical, String password, List<UserRoles> userRoles, List<Measurement> measurements)
     {
         setUsername(username);
         setPassword(password);
@@ -68,7 +68,7 @@ public class User extends Auditable
         this.userRoles = userRoles;
         this.height = height;
         this.vertical = vertical;
-        this.exercisescompleted = exercisescompleted;
+        this.exercisescompleted = 0;
         this.measurements = measurements;
     }
     

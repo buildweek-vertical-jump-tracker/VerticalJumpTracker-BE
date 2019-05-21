@@ -50,10 +50,10 @@ public class SeedData implements CommandLineRunner
         
         
         //public User(String username, String height, double vertical, long exercisescompleted, String password, List<UserRoles> userRoles, List<Measurement> measurements)
-        User u1 = new User("andrew", "6\'0\"", 18, 0, "password", users, u1Measures);
+        User u1 = new User("andrew", "6\'0\"", 18, "password", users, u1Measures);
         m1.setUser(u1);
         
-        User u2 = new User("charles", "5\'10\"", 20, 0, "password", users, u2Measures);
+        User u2 = new User("charles", "5\'10\"", 20, "password", users, u2Measures);
         m2.setUser(u2);
         m3.setUser(u2);
         

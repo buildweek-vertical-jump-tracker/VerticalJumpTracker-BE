@@ -3,6 +3,7 @@ package com.lambdaschool.vertical.jump.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -28,7 +29,7 @@ public class Swagger2Config extends WebMvcConfigurerAdapter
     
     private ApiInfo apiEndPointsInfo()
     {
-        return new ApiInfoBuilder().title("User OAuth2 Example").description("User OAuth2 Example").contact(new Contact("John Mitchell", "http://www.lambdaschool.com", "john@lambdaschool.com")).license("MIT").licenseUrl("https://github.com/LambdaSchool/java-crudysnacks/blob/master/LICENSE").version("1.0.0").build();
+        return new ApiInfoBuilder().title("User OAuth2 Example").description("User OAuth2 Example").contact(new Contact("Andrew Safran", "http://www.lambdaschool.com", "andrewsafran@gmail.com")).license("MIT").licenseUrl("https://github.com/LambdaSchool/java-crudysnacks/blob/master/LICENSE").version("1.0.0").build();
     }
     
     @Override
@@ -38,4 +39,5 @@ public class Swagger2Config extends WebMvcConfigurerAdapter
         registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
+    
 }
