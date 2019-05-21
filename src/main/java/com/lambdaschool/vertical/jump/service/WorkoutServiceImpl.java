@@ -1,5 +1,6 @@
 package com.lambdaschool.vertical.jump.service;
 
+import com.lambdaschool.vertical.jump.model.User;
 import com.lambdaschool.vertical.jump.model.Workout;
 import com.lambdaschool.vertical.jump.repository.WorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,12 @@ public class WorkoutServiceImpl implements WorkoutService
         workoutRepository.findAll().iterator().forEachRemaining(list::add);
         
         return list;
+    }
+    
+    @Override
+    public Workout getToday(User user)
+    {
+        //Figure out what day of cycle the user is on
+        return workoutRepository.findByDay((user.getExercisescompleted() % 5) + 1);
     }
 }

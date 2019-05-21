@@ -3,6 +3,7 @@ package com.lambdaschool.vertical.jump.controller;
 import com.lambdaschool.vertical.jump.model.User;
 import com.lambdaschool.vertical.jump.service.UserService;
 import com.lambdaschool.vertical.jump.service.WorkoutService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ import java.util.Map;
 
 @CrossOrigin
 @RestController
-@RequestMapping
+@RequestMapping()
 public class Controller
 {
     @Autowired
@@ -28,13 +29,13 @@ public class Controller
     @Autowired
     private WorkoutService workoutService;
     
+    @ApiOperation(value = "Return current user", response = User.class)
     @GetMapping(value = "/users/me", produces = {"application/json"})
-    public ResponseEntity<?> findCurrentUser(Authentication authentication)
+    public ResponseEntity<?> findCurrentUser(/*Authentication authentication*/)
     {
-        String username = authentication.getName();
-        System.out.println(username);
+        //String username = authentication.getName();
         
-        return new ResponseEntity<>(userService.findUserByUsername(username), HttpStatus.OK);
+        return new ResponseEntity<>(userService.findUserByUsername("charles"), HttpStatus.OK);
     }
     
     @GetMapping(value = "/workouts/all", produces = {"application/json"})
@@ -55,5 +56,15 @@ public class Controller
                 .toUri();
         responseHeaders.setLocation(newUserURI);
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+    }
+    
+    @GetMapping(value = "/workouts/today", produces = {"application/json"})
+    public ResponseEntity<?> getWorkoutToday(/*Authentication authentication*/)
+    {
+        //String username = authentication.getName()
+        
+        String username = "charles";
+        
+        return new ResponseEntity<>(workoutService.getToday(userService.findUserByUsername(username)), HttpStatus.OK);
     }
 }

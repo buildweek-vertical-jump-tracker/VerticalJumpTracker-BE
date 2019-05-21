@@ -73,27 +73,50 @@ public class SeedData implements CommandLineRunner
         Exercise e5 = new Exercise("Reverse Hyperextensions", 10, 3);
         Exercise e6 = new Exercise("Squat Jumps", 10, 1);
         Exercise e7 = new Exercise("Ankle Hops", 10, 3);
+        Exercise e8 = new Exercise("Bench Press", 10, 3);
+        Exercise e9 = new Exercise("Day off", 0, 0);
         
         ArrayList<Exercise> day1 = new ArrayList<>();
+        ArrayList<Exercise> day2 = new ArrayList<>();
+        ArrayList<Exercise> day3 = new ArrayList<>();
+        ArrayList<Exercise> day4 = new ArrayList<>();
+        ArrayList<Exercise> day5 = new ArrayList<>();
+        
         day1.add(e1);
         day1.add(e2);
-        day1.add(e3);
-        day1.add(e4);
-        day1.add(e5);
-        day1.add(e6);
-        day1.add(e7);
+        day2.add(e3);
+        day2.add(e4);
+        day3.add(e9);
+        day4.add(e5);
+        day4.add(e6);
+        day5.add(e7);
+        day5.add(e8);
         
         Workout w1 = new Workout(1, day1);
+        Workout w2 = new Workout(2, day2);
+        Workout w3 = new Workout(3, day3);
+        Workout w4 = new Workout(4, day4);
+        Workout w5 = new Workout(5, day5);
         
         ArrayList<Workout> firstWorkout = new ArrayList<>();
         firstWorkout.add(w1);
         
-        for (Exercise e : day1)
-        {
-            e.setWorkouts(firstWorkout);
-            exerciseRepository.save(e);
-        }
+        exerciseRepository.save(e1);
+        exerciseRepository.save(e2);
+        exerciseRepository.save(e3);
+        exerciseRepository.save(e4);
+        exerciseRepository.save(e5);
+        exerciseRepository.save(e6);
+        exerciseRepository.save(e7);
+        exerciseRepository.save(e8);
+        exerciseRepository.save(e9);
+        
+        
         workoutRepository.save(w1);
+        workoutRepository.save(w2);
+        workoutRepository.save(w3);
+        workoutRepository.save(w4);
+        workoutRepository.save(w5);
         
         Goal g1 = new Goal(24, u1);
         ArrayList<Goal> u1goals = new ArrayList<>();

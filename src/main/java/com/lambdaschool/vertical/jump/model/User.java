@@ -26,7 +26,7 @@ public class User extends Auditable
     
     private String height;
     private double vertical;
-    private long exercisescompleted = 0;
+    private int exercisescompleted = 0;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
@@ -98,12 +98,12 @@ public class User extends Auditable
         this.vertical = vertical;
     }
     
-    public long getExercisescompleted()
+    public int getExercisescompleted()
     {
         return exercisescompleted;
     }
     
-    public void setExercisescompleted(long exercisescompleted)
+    public void setExercisescompleted(int exercisescompleted)
     {
         this.exercisescompleted = exercisescompleted;
     }
