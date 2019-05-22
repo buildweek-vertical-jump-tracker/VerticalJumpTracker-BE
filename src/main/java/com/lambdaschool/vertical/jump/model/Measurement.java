@@ -77,4 +77,9 @@ public class Measurement extends Auditable
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         return dateFormat.format(creationDate);
     }
+    
+    public Date getRawDate()
+    {
+        return creationDate;
+    }
 }

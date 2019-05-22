@@ -1,6 +1,7 @@
 package com.lambdaschool.vertical.jump.service;
 
 import com.lambdaschool.vertical.jump.exception.ResourceNotFoundException;
+import com.lambdaschool.vertical.jump.model.Measurement;
 import com.lambdaschool.vertical.jump.model.User;
 import com.lambdaschool.vertical.jump.model.UserRoles;
 import com.lambdaschool.vertical.jump.repository.RoleRepository;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -42,7 +44,14 @@ public class UserServiceImpl implements UserDetailsService, UserService
     {
         if(userrepos.findByUsername(username) != null)
         {
-            return userrepos.findByUsername(username);
+            User me = userrepos.findByUsername(username);
+            if (me.getMeasurements().size() != 0) // sort measurements for chart in order
+            {
+                List<Measurement> sorted = me.getMeasurements();
+                Collections.sort(sorted, (m1, m2) -> m1.getRawDate().compareTo(m2.getRawDate()));
+                me.setMeasurements(sorted);
+            }
+            return me;
         } else
         {
             throw new ResourceNotFoundException("Could not find user: " + username);
