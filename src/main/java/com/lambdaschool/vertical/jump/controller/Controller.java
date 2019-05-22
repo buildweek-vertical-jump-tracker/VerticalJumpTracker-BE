@@ -6,6 +6,7 @@ import com.lambdaschool.vertical.jump.service.GoalService;
 import com.lambdaschool.vertical.jump.service.UserService;
 import com.lambdaschool.vertical.jump.service.WorkoutService;
 import io.swagger.annotations.ApiOperation;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -84,12 +85,27 @@ public class Controller
     public ResponseEntity<?> addGoals(@PathVariable long id, @RequestBody Goal goalVertical)
     {
         System.out.println(goalVertical.toString());
-//        User goalUser = userService.findUserById(id);
-//
-//        Goal newGoal = new Goal(goalVertical, goalUser);
-//
-//        goalService.save(newGoal);
+        User goalUser = userService.findUserById(id);
+
+        goalVertical.setUser(goalUser);
+
+        goalService.save(goalVertical);
         
         return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+    
+    @PutMapping(value = {"/goals/update/{goalid}"}, consumes = {"application/json"})
+    public ResponseEntity<?> updateGoal(@PathVariable long goalid, @RequestBody Goal goalVertical)
+    {
+        goalService.updateGoal(goalid, goalVertical);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    
+    @DeleteMapping(value = "/goals/delete/{goalid}")
+    public ResponseEntity<?> deleteGoal(@PathVariable long goalid)
+    {
+        goalService.deleteGoal(goalid);
+        
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

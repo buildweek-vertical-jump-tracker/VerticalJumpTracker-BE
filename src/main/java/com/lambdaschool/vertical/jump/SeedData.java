@@ -39,12 +39,12 @@ public class SeedData implements CommandLineRunner
         ArrayList<UserRoles> users = new ArrayList<>();
         users.add(new UserRoles(new User(), r1));
         
-        Measurement m1 = new Measurement(19, "today", new User());
+        Measurement m1 = new Measurement(19, new User());
         ArrayList<Measurement> u1Measures = new ArrayList<>();
         u1Measures.add(m1);
         
-        Measurement m2 = new Measurement(22, "May 20, 2019", new User());
-        Measurement m3 = new Measurement(23, "June 2, 2019", new User());
+        Measurement m2 = new Measurement(22, new User());
+        Measurement m3 = new Measurement(23, new User());
         
         ArrayList<Measurement> u2Measures = new ArrayList<>();
         u2Measures.add(m2);
