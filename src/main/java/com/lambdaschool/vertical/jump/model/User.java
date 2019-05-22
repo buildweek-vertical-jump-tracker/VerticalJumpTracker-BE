@@ -25,7 +25,6 @@ public class User extends Auditable
     private String username;
     
     private String height;
-    private double vertical;
     private int exercisescompleted = 0;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -63,7 +62,7 @@ public class User extends Auditable
         this.userRoles = userRoles;
     }
     
-    public User(String username, String height, double vertical, String password, List<UserRoles> userRoles, List<Measurement> measurements)
+    public User(String username, String height, String password, List<UserRoles> userRoles, List<Measurement> measurements)
     {
         setUsername(username);
         setPassword(password);
@@ -73,7 +72,6 @@ public class User extends Auditable
         }
         this.userRoles = userRoles;
         this.height = height;
-        this.vertical = vertical;
         this.exercisescompleted = 0;
         this.measurements = measurements;
     }
@@ -86,16 +84,6 @@ public class User extends Auditable
     public void setHeight(String height)
     {
         this.height = height;
-    }
-    
-    public double getVertical()
-    {
-        return vertical;
-    }
-    
-    public void setVertical(double vertical)
-    {
-        this.vertical = vertical;
     }
     
     public int getExercisescompleted()

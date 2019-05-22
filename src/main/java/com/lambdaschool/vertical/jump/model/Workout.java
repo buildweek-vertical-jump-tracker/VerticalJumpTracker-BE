@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "workouts")
-public class Workout
+public class Workout extends Auditable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
