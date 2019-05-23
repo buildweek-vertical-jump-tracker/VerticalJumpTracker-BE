@@ -20,4 +20,6 @@ public interface UserService {
     User update(User user, long id);
     
     void incrementWorkout(long id);
+
+    
 }

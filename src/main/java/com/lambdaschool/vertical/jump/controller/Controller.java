@@ -37,11 +37,11 @@ public class Controller
     
     @ApiOperation(value = "Return current user", response = User.class)
     @GetMapping(value = "/users/me", produces = {"application/json"})
-    public ResponseEntity<?> findCurrentUser(/*Authentication authentication*/)
+    public ResponseEntity<?> findCurrentUser(Authentication authentication)
     {
-        //String username = authentication.getName();
+        String username = authentication.getName();
         
-        return new ResponseEntity<>(userService.findUserByUsername("charles"), HttpStatus.OK);
+        return new ResponseEntity<>(userService.findUserByUsername(username), HttpStatus.OK);
     }
     
     @GetMapping(value = "/workouts/all", produces = {"application/json"})
@@ -53,6 +53,8 @@ public class Controller
     @PostMapping(value = "/users", consumes = {"application/json"})
     public ResponseEntity<?> addUser(@Valid @RequestBody User newUser) throws URISyntaxException
     {
+        //requires: Username, password, height (String)
+        System.out.println(newUser.getPassword());
         newUser = userService.save(newUser);
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newUserURI = ServletUriComponentsBuilder
@@ -65,11 +67,11 @@ public class Controller
     }
     
     @GetMapping(value = "/workouts/today", produces = {"application/json"})
-    public ResponseEntity<?> getWorkoutToday(/*Authentication authentication*/)
+    public ResponseEntity<?> getWorkoutToday(Authentication authentication)
     {
-        //String username = authentication.getName()
+        String username = authentication.getName();
         
-        String username = "charles";
+        //String username = "charles";
         
         return new ResponseEntity<>(workoutService.getToday(userService.findUserByUsername(username)), HttpStatus.OK);
     }
@@ -78,7 +80,9 @@ public class Controller
     public ResponseEntity<?> incrementWorkout(@PathVariable long id)
     {
         userService.incrementWorkout(id);
-        return new ResponseEntity<>(userService.findUserById(id), HttpStatus.OK);
+        User updated = userService.findUserById(id);
+        updated.setExercisescompleted(updated.getExercisescompleted() + 1);
+        return new ResponseEntity<>(updated, HttpStatus.OK);
     }
     
     @PostMapping(value = "/goals/{id}", consumes = {"application/json"})
@@ -108,4 +112,17 @@ public class Controller
         
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    
+    @GetMapping(value = "/goals/3", produces = {"application/json"})
+    public ResponseEntity<?> test()
+    {
+        return new ResponseEntity<>("Hi", HttpStatus.OK);
+    }
+    
+//    @GetMapping(value = "/workouts/plan/{userid}/{planlength}/{dayincrement}")
+//    public ResponseEntity<?> addPlan(@PathVariable long userid, @PathVariable int planlength, @PathVariable int dayincrement)
+//    {
+//        User user = userService.findUserById(userid);
+//
+//    }
 }

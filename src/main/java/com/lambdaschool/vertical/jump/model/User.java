@@ -26,6 +26,10 @@ public class User extends Auditable
     
     private String height;
     private int exercisescompleted = 0;
+    private int startpoint; // how many exercises completed when workout plan is added
+    private int endpoint; // number of exercises needed to finish (startpoint + plan length)
+    private int interval; // number of days between reminders AFTER plan is completed (exercisescompleted >= endpoint)
+    private boolean needmeasurement;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
@@ -74,6 +78,10 @@ public class User extends Auditable
         this.height = height;
         this.exercisescompleted = 0;
         this.measurements = measurements;
+        startpoint = 0;
+        endpoint = 0;
+        interval = 0;
+        needmeasurement = false;
     }
     
     public String getHeight()

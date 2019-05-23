@@ -2,6 +2,7 @@ package com.lambdaschool.vertical.jump.service;
 
 import com.lambdaschool.vertical.jump.exception.ResourceNotFoundException;
 import com.lambdaschool.vertical.jump.model.Measurement;
+import com.lambdaschool.vertical.jump.model.Role;
 import com.lambdaschool.vertical.jump.model.User;
 import com.lambdaschool.vertical.jump.model.UserRoles;
 import com.lambdaschool.vertical.jump.repository.RoleRepository;
@@ -92,12 +93,7 @@ public class UserServiceImpl implements UserDetailsService, UserService
         newUser.setUsername(user.getUsername());
         newUser.setPasswordNoEncrypt(user.getPassword());
         
-        ArrayList<UserRoles> newRoles = new ArrayList<>();
-        for (UserRoles ur : user.getUserRoles())
-        {
-            newRoles.add(new UserRoles(newUser, ur.getRole()));
-        }
-        newUser.setUserRoles(newRoles);
+        newUser.setHeight(user.getHeight());
         
         return userrepos.save(newUser);
     }
