@@ -150,6 +150,53 @@ public class UserServiceImpl implements UserDetailsService, UserService
     @Transactional
     public void incrementWorkout(long id)
     {
-        userrepos.incrementWorkout(id, userrepos.findByUserid(id).getExercisescompleted() + 1);
+        // get the current user
+        User incrementing = userrepos.findByUserid(id);
+        int endpoint = incrementing.getEndpoint();
+        int completed = incrementing.getExercisescompleted();
+        int interval = incrementing.getInterval();
+        int initial = incrementing.getStartpoint();
+        //figure out if they have a workout plan
+        if (endpoint != 0)
+        {
+            //if here, they must have a plan, need to find out if it's active or completed
+            if(endpoint == completed)
+            {
+                //needs measurement
+                userrepos.needMeasurement(id);
+            }else if(endpoint > completed)
+            {
+                //check if interval has passed
+                if((completed - endpoint) % interval == 0)
+                {
+                    //needs measurement
+                    userrepos.needMeasurement(id);
+                }
+            }
+            else
+            {
+                //check if halfway through program
+                int portionDone = completed - initial;
+                int portionToGo = endpoint - completed;
+                if(portionDone == portionToGo || portionDone - portionToGo == 1)
+                {
+                    //needs measurement
+                    userrepos.needMeasurement(id);
+                }
+            }
+        }
+        userrepos.incrementWorkout(id, completed + 1);
+    }
+    
+    @Override
+    @Transactional
+    public void addPlan(long id, int length, int interval)
+    {
+        User planner = userrepos.findByUserid(id);
+        
+        int startpoint = planner.getExercisescompleted();
+        int endpoint = startpoint + length;
+        
+        userrepos.addPlan(id, startpoint, endpoint, interval);
     }
 }

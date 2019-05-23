@@ -1,12 +1,13 @@
 package com.lambdaschool.vertical.jump.controller;
 
 import com.lambdaschool.vertical.jump.model.Goal;
+import com.lambdaschool.vertical.jump.model.Measurement;
 import com.lambdaschool.vertical.jump.model.User;
 import com.lambdaschool.vertical.jump.service.GoalService;
+import com.lambdaschool.vertical.jump.service.MeasurementService;
 import com.lambdaschool.vertical.jump.service.UserService;
 import com.lambdaschool.vertical.jump.service.WorkoutService;
 import io.swagger.annotations.ApiOperation;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,8 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.Map;
+
 
 @CrossOrigin
 @RestController
@@ -34,6 +34,9 @@ public class Controller
     
     @Autowired
     private GoalService goalService;
+    
+    @Autowired
+    private MeasurementService measurementService;
     
     @ApiOperation(value = "Return current user", response = User.class)
     @GetMapping(value = "/users/me", produces = {"application/json"})
@@ -95,7 +98,7 @@ public class Controller
 
         goalService.save(goalVertical);
         
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(goalService.getGoalsByUserId(id), HttpStatus.OK);
     }
     
     @PutMapping(value = {"/goals/update/{goalid}"}, consumes = {"application/json"})
@@ -113,16 +116,20 @@ public class Controller
         return new ResponseEntity<>(HttpStatus.OK);
     }
     
-    @GetMapping(value = "/goals/3", produces = {"application/json"})
-    public ResponseEntity<?> test()
+    @GetMapping(value = "/workouts/plan/{userid}/{planlength}/{interval}")
+    public ResponseEntity<?> addPlan(@PathVariable long userid, @PathVariable int planlength, @PathVariable int interval)
     {
-        return new ResponseEntity<>("Hi", HttpStatus.OK);
+        userService.addPlan(userid, planlength, interval);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     
-//    @GetMapping(value = "/workouts/plan/{userid}/{planlength}/{dayincrement}")
-//    public ResponseEntity<?> addPlan(@PathVariable long userid, @PathVariable int planlength, @PathVariable int dayincrement)
-//    {
-//        User user = userService.findUserById(userid);
-//
-//    }
+    @PostMapping(value = "/measurements/{userid}", consumes = {"application/json"})
+    public ResponseEntity<?> addMeasurement(@PathVariable long userid, @RequestBody Measurement measurement)
+    {
+        User user = userService.findUserById(userid);
+        measurement.setUser(user);
+        measurementService.save(measurement);
+        
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

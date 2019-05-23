@@ -181,4 +181,44 @@ public class User extends Auditable
     {
         this.goals = goals;
     }
+    
+    public int getStartpoint()
+    {
+        return startpoint;
+    }
+    
+    public void setStartpoint(int startpoint)
+    {
+        this.startpoint = startpoint;
+    }
+    
+    public int getEndpoint()
+    {
+        return endpoint;
+    }
+    
+    public void setEndpoint(int endpoint)
+    {
+        this.endpoint = endpoint;
+    }
+    
+    public int getInterval()
+    {
+        return interval;
+    }
+    
+    public void setInterval(int interval)
+    {
+        this.interval = interval;
+    }
+    
+    public boolean isNeedmeasurement()
+    {
+        return needmeasurement;
+    }
+    
+    public void setNeedmeasurement(boolean needmeasurement)
+    {
+        this.needmeasurement = needmeasurement;
+    }
 }

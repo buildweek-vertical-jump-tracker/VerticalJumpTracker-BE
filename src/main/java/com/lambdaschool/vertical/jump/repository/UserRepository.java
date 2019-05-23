@@ -13,4 +13,12 @@ public interface UserRepository extends CrudRepository<User, Long>
     @Modifying
     @Query(value = "UPDATE users SET exercisescompleted=:workoutcompleted WHERE userid=:userid", nativeQuery = true)
     void incrementWorkout(long userid, int workoutcompleted);
+    
+    @Modifying
+    @Query(value = "UPDATE users SET startpoint=:startpoint, endpoint=:endpoint, interval=:interval WHERE userid=:userid ", nativeQuery = true)
+    void addPlan(long userid, int startpoint, int endpoint, int interval);
+    
+    @Modifying
+    @Query(value = "UPDATE users SET needmeasurement=TRUE WHERE userid=:userid", nativeQuery = true)
+    void needMeasurement(long userid);
 }

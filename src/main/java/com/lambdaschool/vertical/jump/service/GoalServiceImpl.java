@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service(value = "goalService")
 public class GoalServiceImpl implements GoalService
 {
@@ -30,5 +33,13 @@ public class GoalServiceImpl implements GoalService
     public void deleteGoal(long goalid)
     {
         goalRepository.deleteById(goalid);
+    }
+    
+    @Override
+    public List<Goal> getGoalsByUserId(long userid)
+    {
+        ArrayList<Goal> list = new ArrayList<>();
+        goalRepository.findAllByUser(userid).iterator().forEachRemaining(list::add);
+        return list;
     }
 }

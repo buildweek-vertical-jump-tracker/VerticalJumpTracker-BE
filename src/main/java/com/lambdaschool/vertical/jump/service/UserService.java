@@ -21,5 +21,5 @@ public interface UserService {
     
     void incrementWorkout(long id);
 
-    
+    void addPlan(long id, int length, int increment);
 }
