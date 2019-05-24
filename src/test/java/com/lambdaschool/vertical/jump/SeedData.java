@@ -43,7 +43,7 @@ public class SeedData implements CommandLineRunner
         ArrayList<Measurement> u1Measures = new ArrayList<>();
         u1Measures.add(m1);
         
-        Measurement m2 = new Measurement(14, new User());
+        Measurement m2 = new Measurement(25, new User());
         Measurement m3 = new Measurement(15, new User());
         
         ArrayList<Measurement> u2Measures = new ArrayList<>();
