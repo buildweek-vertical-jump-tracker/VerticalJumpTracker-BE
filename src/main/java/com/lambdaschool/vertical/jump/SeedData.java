@@ -45,10 +45,20 @@ public class SeedData implements CommandLineRunner
         
         Measurement m2 = new Measurement(22, new User());
         Measurement m3 = new Measurement(23, new User());
+        Measurement m4 = new Measurement(23, new User());
+        Measurement m5 = new Measurement(23, new User());
+        Measurement m6 = new Measurement(23, new User());
+        Measurement m7 = new Measurement(23, new User());
+        Measurement m8 = new Measurement(23, new User());
         
         ArrayList<Measurement> u2Measures = new ArrayList<>();
         u2Measures.add(m2);
         u2Measures.add(m3);
+        u2Measures.add(m4);
+        u2Measures.add(m5);
+        u1Measures.add(m6);
+        u1Measures.add(m7);
+        u2Measures.add(m8);
         
         
         //public User(String username, String height, double vertical, long exercisescompleted, String password, List<UserRoles> userRoles, List<Measurement> measurements)
@@ -65,6 +75,11 @@ public class SeedData implements CommandLineRunner
         measurementRepository.save(m2);
         measurementRepository.save(m3);
         measurementRepository.save(m1);
+        measurementRepository.save(m4);
+        measurementRepository.save(m5);
+        measurementRepository.save(m6);
+        measurementRepository.save(m7);
+        measurementRepository.save(m8);
     
         Exercise e1 = new Exercise("Clean Pulls", 3, 3);
         Exercise e2 = new Exercise("Back Squats", 10, 3);

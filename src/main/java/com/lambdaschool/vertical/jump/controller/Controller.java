@@ -3,6 +3,7 @@ package com.lambdaschool.vertical.jump.controller;
 import com.lambdaschool.vertical.jump.model.Goal;
 import com.lambdaschool.vertical.jump.model.Measurement;
 import com.lambdaschool.vertical.jump.model.User;
+import com.lambdaschool.vertical.jump.model.Workout;
 import com.lambdaschool.vertical.jump.service.GoalService;
 import com.lambdaschool.vertical.jump.service.MeasurementService;
 import com.lambdaschool.vertical.jump.service.UserService;
@@ -47,6 +48,7 @@ public class Controller
         return new ResponseEntity<>(userService.findUserByUsername(username), HttpStatus.OK);
     }
     
+    @ApiOperation(value = "Returns a list of all workouts and their assigned exercises", response = Workout.class, responseContainer = "list")
     @GetMapping(value = "/workouts/all", produces = {"application/json"})
     public ResponseEntity<?> getAllWorkouts()
     {
@@ -70,7 +72,7 @@ public class Controller
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
     
-    @ApiOperation(value = "Return's the user's currently assigned workout")
+    @ApiOperation(value = "Return's the user's currently assigned workout", response = Workout.class)
     @GetMapping(value = "/workouts/today", produces = {"application/json"})
     public ResponseEntity<?> getWorkoutToday(Authentication authentication)
     {
@@ -81,7 +83,7 @@ public class Controller
         return new ResponseEntity<>(workoutService.getToday(userService.findUserByUsername(username)), HttpStatus.OK);
     }
     
-    @ApiOperation(value = "Iterates user's exercises completed value, changing data received from \"/workouts/today\" endpoint")
+    @ApiOperation(value = "Iterates user's exercises completed value, changing data received from \"/workouts/today\" endpoint", response = User.class)
     @GetMapping(value = "/workouts/{id}", produces = {"application/json"})
     public ResponseEntity<?> incrementWorkout(@PathVariable long id)
     {
@@ -92,7 +94,7 @@ public class Controller
     }
     
     @ApiOperation(value = "Adds new goal for user with id {id}", notes = "Requires \"goalvertical\" as an integer")
-    @PostMapping(value = "/goals/{id}", consumes = {"application/json"})
+    @PostMapping(value = "/goals/{id}", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<?> addGoals(@PathVariable long id, @RequestBody Goal goalVertical)
     {
         System.out.println(goalVertical.toString());
